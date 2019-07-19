@@ -1,6 +1,20 @@
 const router = require('express').Router();
 const Member = require('../models/member');
 
+// 로그인
+router.post('/login', (req, res) => {
+  Member.findOneByMemberid(req.body.member_id)
+    .then((member) => {
+      if (!member) return res.send({ result: 0, reason: 'ID not found' }); // ID Check
+      if (member.member_pwd != req.body.member_pwd)  // Password Check
+       return res.send({ result: 0, reason: 'PWD not correct' });
+      else {
+          res.send({result: 1, nickname: member.member_nickname});
+      }
+    })
+    .catch(err => res.status(500).send(err));
+});
+
 // Find All
 router.get('/', (req, res) => {
   Member.findAll()

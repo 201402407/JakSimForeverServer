@@ -31,8 +31,6 @@ db.once('open', function(){
     console.log("Connected to mongod server");
 });
 
-console.log("phrase 1");
-
 // CONNECT TO MONGOOSE
 mongoose.connect('mongodb://localhost/test',
 { useNewUrlParser: true }

@@ -24,7 +24,7 @@ memberSchema.statics.findAll = function () {
   return this.find({});
 };
 
-// Find One by todoid
+// Find One by member_id
 memberSchema.statics.findOneByMemberid = function (member_id) {
   return this.findOne({ member_id });
 };
