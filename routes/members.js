@@ -5,11 +5,11 @@ const Member = require('../models/member');
 router.post('/login', (req, res) => {
   Member.findOneByMemberid(req.body.member_id)
     .then((member) => {
-      if (!member) return res.send({ result: 0, reason: 'ID not found' }); // ID Check
+      if (!member) return res.json({ result : 0, reason : 'ID not found' }); // ID Check
       if (member.member_pwd != req.body.member_pwd)  // Password Check
-       return res.send({ result: 0, reason: 'PWD not correct' });
+       return res.json({ result : 0, reason : 'PWD not correct' });
       else {
-          return res.send({result: 1, nickname: member.member_nickname});
+          return res.json({result : 1, nickname : member.member_nickname});
       }
     })
     .catch(err => res.status(500).send(err));
@@ -19,22 +19,35 @@ router.post('/login', (req, res) => {
 router.post('/checkID', (req, res) => {
   Member.findOneByMemberid(req.body.member_id)
     .then((member) => {
-      if (!member) return res.send({ result: 1 }); // 중복된 아이디 존재 X
-      else         return res.send({ result: 0 }); // 중복된 아이디 존재 O
-      }
+      console.log(member)
+      if (!member)
+          return res.json({ result : 1 }); // 중복된 아이디 존재 X
+      else
+          return res.json({ result : 0 }); // 중복된 아이디 존재 O
     })
     .catch(err => res.status(500).send(err));
 });
 
 // 닉네임 중복검사
 router.post('/checkNickname', (req, res) => {
-  Member.findOneByMemberid(req.body.member_nickname)
+  Member.findOneByMemberNickname(req.body.member_nickname)
     .then((member) => {
-      if (!member) return res.send({ result: 1 }); // 중복된 닉네임 존재 X
-      else         return res.send({ result: 0 }); // 중복된 닉네임 존재 O
-      }
+      if (!member)
+          return res.json({ result : 1 }); // 중복된 닉네임 존재 X
+      else
+          return res.json({ result : 0 }); // 중복된 닉네임 존재 O
     })
     .catch(err => res.status(500).send(err));
+});
+
+// 회원가입
+router.post('/join', (req, res) => {
+  Member.create(req.body)
+    .then(member => res.json({result : 1}))
+    .catch(function(err) {
+      console.error(err);
+      res.json({result : 0});
+    });
 });
 
 // Find All

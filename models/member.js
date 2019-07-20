@@ -6,10 +6,15 @@ var Schema = mongoose.Schema;
 var memberSchema = new Schema({
     member_id: { type : String, required : true, unique : true },
     member_pwd: { type : String, required : true },
-    member_nickname: { type: String, default: "noname" }
+    member_nickname: { type: String, default: "noname" },
+    bank_name: { type: String },
+    card_num: { type: String },
+    card_cvc: { type: Number },
+    card_duedate: { type: Date },
+    card_pwd: { type: Number }
 });
 
-// Create new todo document
+// 회원가입
 memberSchema.statics.create = function (payload) {
   // this === Model
   const member = new this(payload);
@@ -30,7 +35,7 @@ memberSchema.statics.findOneByMemberid = function (member_id) {
 };
 
 // Find One by member_nickname
-memberSchema.statics.findOneByMemberid = function (member_nickname) {
+memberSchema.statics.findOneByMemberNickname = function (member_nickname) {
   return this.findOne({ member_nickname });
 };
 
