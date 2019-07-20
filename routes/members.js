@@ -9,7 +9,29 @@ router.post('/login', (req, res) => {
       if (member.member_pwd != req.body.member_pwd)  // Password Check
        return res.send({ result: 0, reason: 'PWD not correct' });
       else {
-          res.send({result: 1, nickname: member.member_nickname});
+          return res.send({result: 1, nickname: member.member_nickname});
+      }
+    })
+    .catch(err => res.status(500).send(err));
+});
+
+// 아이디 중복검사
+router.post('/checkID', (req, res) => {
+  Member.findOneByMemberid(req.body.member_id)
+    .then((member) => {
+      if (!member) return res.send({ result: 1 }); // 중복된 아이디 존재 X
+      else         return res.send({ result: 0 }); // 중복된 아이디 존재 O
+      }
+    })
+    .catch(err => res.status(500).send(err));
+});
+
+// 닉네임 중복검사
+router.post('/checkNickname', (req, res) => {
+  Member.findOneByMemberid(req.body.member_nickname)
+    .then((member) => {
+      if (!member) return res.send({ result: 1 }); // 중복된 닉네임 존재 X
+      else         return res.send({ result: 0 }); // 중복된 닉네임 존재 O
       }
     })
     .catch(err => res.status(500).send(err));

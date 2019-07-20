@@ -29,6 +29,12 @@ memberSchema.statics.findOneByMemberid = function (member_id) {
   return this.findOne({ member_id });
 };
 
+// Find One by member_nickname
+memberSchema.statics.findOneByMemberid = function (member_nickname) {
+  return this.findOne({ member_nickname });
+};
+
+
 // Update by todoid
 memberSchema.statics.updateByMemberid = function (member_id, payload) {
   // { new: true }: return the modified document rather than the original. defaults to false
