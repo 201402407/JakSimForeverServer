@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 // [CONFIGURE SERVER PORT]
 var port = process.env.PORT || 8080;
-var hostname = '192.168.1.4';
+var hostname = '192.168.1.6';
 
 // Node.js의 native Promise 사용
 mongoose.Promise = global.Promise;
@@ -40,6 +40,6 @@ mongoose.connect('mongodb://localhost/test',
  // [CONFIGURE ROUTER]
  // var router = require('./routes')(app, Member);
  app.use('/members', require('./routes/members'));
-
+ app.use('/rooms', require('./routes/rooms'));
  // DEFINE model
  // var Member = require('./models/member');

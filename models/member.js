@@ -29,12 +29,12 @@ memberSchema.statics.findAll = function () {
   return this.find({});
 };
 
-// Find One by member_id
+// Find One by member_id -> 아이디 중복체크, 로그인
 memberSchema.statics.findOneByMemberid = function (member_id) {
   return this.findOne({ member_id });
 };
 
-// Find One by member_nickname
+// Find One by member_nickname -> 닉네임 중복체크
 memberSchema.statics.findOneByMemberNickname = function (member_nickname) {
   return this.findOne({ member_nickname });
 };
